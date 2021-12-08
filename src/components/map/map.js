@@ -118,9 +118,9 @@ function Map (){
   if (settings.filters.speed !== 0 || !['', '-'].includes(settings.filters.delay) || settings.filters.line.length > 0 || settings.filters.route_stop.length > 0) {
     filteredBuses = filteredBuses.filter(item => {
       let cond = true;
-      // cond &= settings.filters.speed !== 0 ? item.Speed >= settings.filters.speed : cond;
-      // cond &= !['', '-'].includes(settings.filters.delay) ? (item.Delay || 0) <= (settings.filters.delay*-1) : cond;
-      // cond &= settings.filters.line.length > 0 ? !!settings.filters.line.find(line => line.label == item.Line) : cond;
+      cond &= settings.filters.speed !== 0 ? item.Speed >= settings.filters.speed : cond;
+      cond &= !['', '-'].includes(settings.filters.delay) ? (item.Delay || 0) <= (settings.filters.delay*-1) : cond;
+      cond &= settings.filters.line.length > 0 ? !!settings.filters.line.find(line => line.label == item.Line) : cond;
       cond &= settings.filters.route_stop.length > 0 ? !!settings.filters.route_stop.find(route => route.tripId === parseInt(item.Route) && route.routeId === parseInt(item.Line)) : cond;
       return cond;
     });
